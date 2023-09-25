@@ -80,6 +80,7 @@ class MainSystemTablesSeeder extends Seeder
             'surname' => 'Admin',
             'phone' => '+355691111111',
             'email' => 'admin@gmail.com',
+            'location' => 'Madrid',
             'password' => bcrypt('password'),
         ]);
         $admin->assignRole('admin');
@@ -89,6 +90,7 @@ class MainSystemTablesSeeder extends Seeder
             'surname' => 'Employee',
             'phone' => '+355692222222',
             'email' => 'employee@gmail.com',
+            'location' => 'Mexico',
             'password' => bcrypt('password'),
         ]);
         $employee->assignRole('employee');
