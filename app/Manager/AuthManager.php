@@ -4,39 +4,38 @@ namespace App\Manager;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 
 class AuthManager
 {
-    public function loginUser($request)
+    public function loginUser(array $requestData)
     {
-        if (!Auth::attempt($request->only(['email', 'password']))) {
+        if (!Auth::attempt(['email' => $requestData['email'], 'password' => $requestData['password']])) {
             return [
                 'success' => false,
-                'message' => 'Email & Password does not match with our record.',
+                'message' => 'Email or Password does not match with our record.',
                 'code' => 401
             ];
         }
 
-        $user = User::where('email', $request->email)->first();
+        /** @var User $user */
+        $user = auth()->user();
 
-        if (!$user->active)
+        if (!$user->active) {
             return [
                 'success' => false,
                 'message' => 'User is blocked!',
                 'code' => 403
             ];
+        }
 
         $token = $user->createToken('auth_token');
-
-        $accessToken = $token->plainTextToken;
-        //  $expiresAt = $token->token->expires_at;
 
         return [
             'success' => true,
             'message' => 'User Logged In Successfully',
-            'token' => $accessToken,
-            // 'expires_at' => $expiresAt,
+            'token' => $token->plainTextToken,
             'code' => 200,
         ];
     }
