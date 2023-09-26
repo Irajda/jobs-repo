@@ -65,8 +65,21 @@ class JobController extends Controller
      */
     public function updateAssignmentJob(UpdateJobAssignmentRequest $request,Job $job): JsonResponse
     {
-        //policy
+        $this->authorize('access_update',$job);
         $result = $this->jobManager->updateAssignmentJob(auth()->user(),$job,$request->validated());
+        $code = $result['code'];
+        unset($result['code']);
+        return response()->json($result, $code);
+    }
+
+    /**
+     * Delete Job
+     * @return JsonResponse
+     */
+    public function delete(Job $job): JsonResponse
+    {
+        $this->authorize('access_delete',$job);
+        $result = $this->jobManager->delete($job);
         $code = $result['code'];
         unset($result['code']);
         return response()->json($result, $code);

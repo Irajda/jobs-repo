@@ -26,19 +26,20 @@ class JobManager
     public function store(User $user, array $requestData)
     {
         try {
-            Job::create([
+            $job = Job::create([
                 "title" => $requestData['title'],
                 "description" => $requestData['description'],
-                "priority" => $requestData['priority'],
+                "priority" => $requestData['priority'] ?? null,
                 "created_by" => $user->id,
             ]);
-            Log::info("Successfully created job with title: {}");
+            Log::info("Successfully created job with title: {$job->tittle}");
 
             return ['success' => true, 'message' => 'Success', 'code' => 200, 'data' => []];
         } catch (\Exception $exception) {
-            Log::error("Error creating job {$exception->getMessage()}");
-            return ['success' => false, 'message' => 'Error', 'code' => 402, 'data' => []];
 
+            Log::error("Error creating job {$exception->getMessage()}");
+
+            return ['success' => false, 'message' => 'Error', 'code' => 402, 'data' => []];
         }
     }
 
@@ -57,9 +58,10 @@ class JobManager
 
             return ['success' => true, 'message' => 'Success', 'code' => 200, 'data' => []];
         } catch (\Exception $exception) {
-            Log::error("Error assign job {$exception->getMessage()}");
-            return ['success' => false, 'message' => 'Error', 'code' => 402, 'data' => []];
 
+            Log::error("Error assign job {$exception->getMessage()}");
+
+            return ['success' => false, 'message' => 'Error', 'code' => 402, 'data' => []];
         }
     }
 
@@ -72,16 +74,29 @@ class JobManager
             $assignmentJob = $job->jobs_assignment()->where('user_id', $user->id)->first();
 
             $assignmentJob->update([
-                "completed" => $requestData['completed'],
-                "assessment" => $requestData['assessment'],
+                "completed" => $requestData['completed'] ?? null,
+                "assessment" => $requestData['assessment'] ?? null,
             ]);
-            Log::info("Successfully updated");
+            Log::info("Successfully created job with title: {$job->tittle}");
 
             return ['success' => true, 'message' => 'Success', 'code' => 200, 'data' => []];
+
         } catch (\Exception $exception) {
+
             Log::error("Error update job {$exception->getMessage()}");
+
             return ['success' => false, 'message' => 'Error', 'code' => 402, 'data' => []];
 
         }
     }
+
+    /**
+     * Delete Job
+     */
+    public function delete(Job $job)
+    {
+        $job->delete();
+        return ['success' => true, 'message' => 'Success', 'code' => 200, 'data' => []];
+    }
+
 }

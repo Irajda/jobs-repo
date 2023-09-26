@@ -50,7 +50,7 @@ class MainSystemTablesSeeder extends Seeder
                 'guard_name' => 'web'
             ],
             [
-                'name' => 'job.show',
+                'name' => 'job.assign',
                 'guard_name' => 'web'
             ],
             [
@@ -67,10 +67,10 @@ class MainSystemTablesSeeder extends Seeder
     public function createRole()
     {
         $adminRole = Role::create(['name' => 'admin', 'guard_name' => 'web']);
-        $adminRole->givePermissionTo(['job.view', 'job.create', 'job.show', 'job.update', 'job.delete']);
+        $adminRole->givePermissionTo(['job.view', 'job.create', 'job.assign', 'job.update', 'job.delete']);
 
         $employeeRole = Role::create(['name' => 'employee', 'guard_name' => 'web']);
-        $employeeRole->givePermissionTo(['job.view', 'job.show', 'job.update']);
+        $employeeRole->givePermissionTo(['job.view', 'job.assign', 'job.update']);
     }
 
     public function createUser()

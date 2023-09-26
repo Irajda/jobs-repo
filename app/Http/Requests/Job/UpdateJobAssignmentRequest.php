@@ -24,7 +24,7 @@ class UpdateJobAssignmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'completed' => ['required', 'integer'],
+            'completed' => ['nullable', 'integer'],
             'assessment' => ['required', 'string', 'max:250'],
         ];
     }

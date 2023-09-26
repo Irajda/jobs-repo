@@ -22,7 +22,8 @@ Route::middleware(['auth:sanctum', 'auth.permission'])->group(function () {
     Route::prefix('job')->group(function () {
         Route::get('/get', [JobController::class, 'index'])->setPermission(Permission::JOB_VIEW);
         Route::post('/create', [JobController::class, 'store'])->setPermission(Permission::JOB_CREATE);
-        Route::post('/assign/{job}', [JobController::class, 'assignJob'])->setPermission(Permission::JOB_CREATE);
-        Route::put('/update/{job}', [JobController::class, 'updateAssignmentJob'])->setPermission(Permission::JOB_CREATE);
+        Route::post('/assign/{job}', [JobController::class, 'assignJob'])->setPermission(Permission::ASSIGN_JOB);
+        Route::put('/updateAssignedJob/{job}', [JobController::class, 'updateAssignmentJob'])->setPermission(Permission::UPDATE_ASSIGN_JOB);
+        Route::delete('/delete/{job}', [JobController::class, 'delete'])->setPermission(Permission::JOB_DELETE);
     });
 });
