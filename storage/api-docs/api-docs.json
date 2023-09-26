@@ -1,0 +1,234 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "JOB LIST",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http:\/\/127.0.0.1:8000\/api\/jobs"
+        }
+    ],
+    "paths": {
+        "\/api\/login": {
+            "post": {
+                "tags": [
+                    "public"
+                ],
+                "summary": "App\\Http\\Controllers\\Api\\AuthController@login",
+                "description": "login",
+                "operationId": "App\\Http\\Controllers\\Api\\AuthController@login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "schema": {
+                            "type": "email"
+                        },
+                        "required": "true"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "\/api\/job\/get": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "App\\Http\\Controllers\\Api\\JobController@index",
+                "description": "index",
+                "operationId": "App\\Http\\Controllers\\Api\\JobController@index",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                },
+                "security": [
+                    []
+                ]
+            }
+        },
+        "\/api\/job\/create": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "App\\Http\\Controllers\\Api\\JobController@store",
+                "description": "store",
+                "operationId": "App\\Http\\Controllers\\Api\\JobController@store",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": "true"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": "true"
+                    },
+                    {
+                        "name": "priority",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                },
+                "security": [
+                    []
+                ]
+            }
+        },
+        "\/api\/job\/assign\/{job}": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "App\\Http\\Controllers\\Api\\JobController@assignJob",
+                "description": "assignJob",
+                "operationId": "App\\Http\\Controllers\\Api\\JobController@assignJob",
+                "parameters": [
+                    {
+                        "name": "job",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "due_date",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                },
+                "security": [
+                    []
+                ]
+            }
+        },
+        "\/api\/job\/updateAssignedJob\/{job}": {
+            "put": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "App\\Http\\Controllers\\Api\\JobController@updateAssignmentJob",
+                "description": "updateAssignmentJob",
+                "operationId": "App\\Http\\Controllers\\Api\\JobController@updateAssignmentJob",
+                "parameters": [
+                    {
+                        "name": "job",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "completed",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "assessment",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                },
+                "security": [
+                    []
+                ]
+            }
+        },
+        "\/api\/job\/delete\/{job}": {
+            "delete": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "App\\Http\\Controllers\\Api\\JobController@delete",
+                "description": "delete",
+                "operationId": "App\\Http\\Controllers\\Api\\JobController@delete",
+                "parameters": [
+                    {
+                        "name": "job",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                },
+                "security": [
+                    []
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
