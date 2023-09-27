@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\JobController;
 use Illuminate\Support\Facades\Route;
+use App\Constant\PermissionConstant as Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum', 'auth.permission'])->group(function () {
+    Route::prefix('job')->group(function () {
+        Route::get('/', [JobController::class, 'index'])->setPermission(Permission::JOB_VIEW);
+        Route::post('/', [JobController::class, 'store'])->setPermission(Permission::JOB_CREATE);
+        Route::post('/assign/{job}', [JobController::class, 'assignJob'])->setPermission(Permission::ASSIGN_JOB);
+        Route::put('/updateAssignedJob/{job}', [JobController::class, 'updateAssignmentJob'])->setPermission(Permission::UPDATE_ASSIGN_JOB);
+        Route::delete('/delete/{job}', [JobController::class, 'delete'])->setPermission(Permission::JOB_DELETE);
+    });
 });

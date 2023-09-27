@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('surname')->nullable();
             $table->string('phone')->nullable();
             $table->boolean('active')->default(1);
+            $table->string('location')->nullable();
             $table->softDeletes();
         });
     }
@@ -32,6 +33,7 @@ return new class extends Migration
             $table->dropColumn('surname');
             $table->dropColumn('phone');
             $table->dropColumn('active');
+            $table->dropColumn('location');
             $table->dropSoftDeletes();
         });
     }
