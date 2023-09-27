@@ -80,19 +80,28 @@ class MainSystemTablesSeeder extends Seeder
             'surname' => 'Admin',
             'phone' => '+355691111111',
             'email' => 'admin@gmail.com',
-            'location' => 'Madrid',
             'password' => bcrypt('password'),
         ]);
         $admin->assignRole('admin');
 
-        $employee = User::create([
+        $employee1 = User::create([
             'name' => 'First Employee',
             'surname' => 'Employee',
             'phone' => '+355692222222',
-            'email' => 'employee@gmail.com',
-            'location' => 'Mexico',
+            'email' => 'employee11@gmail.com',
+            'time_zone' => 'America/Mexico_City',
             'password' => bcrypt('password'),
         ]);
-        $employee->assignRole('employee');
+        $employee1->assignRole('employee');
+
+        $employee2 = User::create([
+            'name' => 'Helen',
+            'surname' => 'Troka',
+            'phone' => '+355693333333',
+            'email' => 'employee22@gmail.com',
+            'time_zone' => 'Europe/Madrid',
+            'password' => bcrypt('password'),
+        ]);
+        $employee2->assignRole('employee');
     }
 }

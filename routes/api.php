@@ -18,7 +18,7 @@ use App\Constant\PermissionConstant as Permission;
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware(['auth:sanctum', 'auth.permission'])->group(function () {
+Route::middleware(['auth:sanctum', 'auth.permission','set.timezone'])->group(function () {
     Route::prefix('job')->group(function () {
         Route::get('/', [JobController::class, 'index'])->setPermission(Permission::JOB_VIEW);
         Route::post('/', [JobController::class, 'store'])->setPermission(Permission::JOB_CREATE);

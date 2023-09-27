@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources\Job;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ViewJobsResource extends JsonResource
+class JobAssignmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,13 +15,12 @@ class ViewJobsResource extends JsonResource
      */
     public function toArray($request)
     {
+        $carbonDueDate = Carbon::parse($this->due_date)->timezone(auth()->user()->time_zone);
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'priority' => $this->priority,
-            'created_by' => $this->user->name . " " . $this->user->surname,
-            'assign' => JobAssignmentResource::collection($this->jobs_assignment)
+            'user' => $this->user->name . " " . $this->user->surname,
+            'due_date' => $carbonDueDate->format('Y-m-d H:i:s'),
+            'assessment' => $this->assessment
         ];
     }
 }
