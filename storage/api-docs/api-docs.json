@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "http:\/\/127.0.0.1:8000\/api\/jobs"
+            "url": "\/"
         }
     ],
     "paths": {
@@ -48,7 +48,7 @@
                 ]
             }
         },
-        "\/api\/job\/get": {
+        "\/api\/job": {
             "get": {
                 "tags": [
                     "auth"
@@ -65,9 +65,7 @@
                 "security": [
                     []
                 ]
-            }
-        },
-        "\/api\/job\/create": {
+            },
             "post": {
                 "tags": [
                     "auth"
